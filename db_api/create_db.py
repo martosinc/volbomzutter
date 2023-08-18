@@ -1,7 +1,7 @@
 import psycopg2
 
 conn = psycopg2.connect(
-    host='192.168.1.75', user='user', dbname='db', password='123')
+    host='127.0.0.1', user='user', dbname='db', password='123')
 
 cursor = conn.cursor()
 

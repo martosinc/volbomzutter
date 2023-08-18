@@ -1,6 +1,6 @@
 from api import *
 
-db_api = API(host='192.168.1.75', user='user', db_name='db', password='123')
+db_api = API(host='127.0.0.1', user='user', db_name='db', password='123')
 
 db_api.add_user(User((1, 'name', 'name', 'bio')))
 
