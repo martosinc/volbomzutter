@@ -40,14 +40,14 @@ class Post(Model):
         self.id = None
         self.user_id = None
         self.publication_time = None
-        self.tittle = None
+        self.title = None
         self.content = None
 
         if columns is not None:
             self.parse(columns)
 
     def parse(self, columns: tuple) -> None:
-        self.id, self.user_id, self.publication_time, self.tittle, self.content = columns
+        self.id, self.user_id, self.publication_time, self.title, self.content = columns
 
     def get_sql_insert(self) -> str:
-        return f"""INSERT INTO posts (user_id, tittle, content) VALUES ({self.user_id}, '{self.tittle}', '{self.content}')"""
+        return f"""INSERT INTO posts (user_id, title, content) VALUES ({self.user_id}, '{self.title}', '{self.content}')"""

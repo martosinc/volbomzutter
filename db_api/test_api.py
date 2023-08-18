@@ -9,11 +9,11 @@ db_api.add_user(user)
 print(db_api.get_user(1).name)
 
 # test post table
-db_api.add_post(Post((1, 1, None, 'tittle', 'text')))
-db_api.add_post(Post((2, 1, None, 'tittle', 'text')))
-db_api.add_post(Post((3, 1, None, 'tittle', 'text')))
+db_api.add_post(Post((1, 1, None, 'title', 'text')))
+db_api.add_post(Post((2, 1, None, 'title', 'text')))
+db_api.add_post(Post((3, 1, None, 'title', 'text')))
 
-print(db_api.get_post(1).tittle)
+print(db_api.get_post(1).title)
 
 print(db_api.get_posts_by_user(user))
 
