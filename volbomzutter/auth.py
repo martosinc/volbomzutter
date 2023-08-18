@@ -41,7 +41,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         error = None
-        user = db_api.get_user(username)
+        user = db_api.get_user_by_username(username)
 
         if user is None:
             error = 'Incorrect username.'

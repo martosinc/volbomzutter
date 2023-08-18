@@ -42,13 +42,13 @@ class API:
 
         return User(self.cursor.fetchone())
 
-    def get_user(self, username: str) -> User | None:
+    def get_user_by_username(self, username: str) -> User | None:
         self.cursor.execute(
             'SELECT * FROM users WHERE username = %s', (username, ))
 
         return User(self.cursor.fetchone())
 
-    def get_post(self, id: int) -> Post | None:
+    def get_post_by_id(self, id: int) -> Post | None:
         self.cursor.execute('SELECT * FROM posts WHERE id = %s', (id, ))
 
         return Post(self.cursor.fetchone())

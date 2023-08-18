@@ -38,7 +38,7 @@ def create():
 
 
 def get_post(id, check_author=True):
-    post = db_api.get_post(id)
+    post = db_api.get_post_by_id(id)
 
     if post is None:
         abort(404, f"Post id {id} doesn't exist.")
