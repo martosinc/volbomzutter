@@ -1,6 +1,6 @@
 import psycopg2
 
-from models import User, Post
+from .models import User, Post
 
 __all__ = ['API', 'User', 'Post']
 
@@ -22,8 +22,13 @@ class API:
 
         self.conn.commit()
 
-    def get_user(self, id: int) -> User | None:
+    def get_user_by_id(self, id: int) -> User | None:
         self.cursor.execute('SELECT * FROM users WHERE id = %s', (id, ))
+
+        return User(self.cursor.fetchone())
+
+    def get_user(self, username: str) -> User | None:
+        self.cursor.execute('SELECT * FROM users WHERE username = %s', (username, ))
 
         return User(self.cursor.fetchone())
 
@@ -44,6 +49,16 @@ class API:
                 'SELECT * FROM posts ORDER BY publication_timestamp')
         else:
             self.cursor.execute(
-                'SELECT * FROM posts ORDER BY publication_timestamp LIMIT %s', (limit, ))
+                'SELECT * FROM posts ORDER BY publication_timestamp', (limit, ))
 
         return [Post(row) for row in self.cursor.fetchall()]
+
+    def get_users(self, limit: int = -1) -> list[User] | None:
+        if limit < 0:
+            self.cursor.execute(
+                'SELECT * FROM users')
+        else:
+            self.cursor.execute(
+                'SELECT * FROM users', (limit, ))
+
+        return [User(row) for row in self.cursor.fetchall()]

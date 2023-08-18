@@ -18,6 +18,7 @@ user_table = """CREATE TABLE users
 (
 id SERIAL PRIMARY KEY,
 username VARCHAR(255),
+password VARCHAR(255),
 name VARCHAR(255),
 bio TEXT
 );

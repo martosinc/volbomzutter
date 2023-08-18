@@ -19,6 +19,7 @@ class User(Model):
 
         self.id = None
         self.username = None
+        self.password = None
         self.name = None
         self.bio = None
 
@@ -26,10 +27,10 @@ class User(Model):
             self.parse(columns)
 
     def parse(self, columns: tuple) -> None:
-        self.id, self.username, self.name, self.bio = columns
+        self.id, self.username, self.password, self.name, self.bio = columns
 
     def get_sql_insert(self) -> str:
-        return f"""INSERT INTO users (username, name, bio) VALUES ('{self.username}', '{self.name}', '{self.bio}')"""
+        return f"""INSERT INTO users (username, password, name, bio) VALUES ('{self.username}', '{self.password}', '{self.name}', '{self.bio}')"""
 
 
 class Post(Model):
@@ -39,7 +40,7 @@ class Post(Model):
 
         self.id = None
         self.user_id = None
-        self.publication_time = None
+        self.publication_timestamp = None
         self.title = None
         self.content = None
 
@@ -47,7 +48,7 @@ class Post(Model):
             self.parse(columns)
 
     def parse(self, columns: tuple) -> None:
-        self.id, self.user_id, self.publication_time, self.title, self.content = columns
+        self.id, self.user_id, self.publication_timestamp, self.title, self.content = columns
 
     def get_sql_insert(self) -> str:
         return f"""INSERT INTO posts (user_id, title, content) VALUES ({self.user_id}, '{self.title}', '{self.content}')"""
