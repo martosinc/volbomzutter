@@ -14,17 +14,19 @@ try:
 except:
     conn.rollback()
 
-user_table = """CREATE TABLE users 
+user_table = """
+CREATE TABLE users 
 (
 id SERIAL PRIMARY KEY,
 username VARCHAR(255),
-password VARCHAR(255),
 name VARCHAR(255),
+password_hash TEXT,
 bio TEXT
 );
 """
 
-post_table = """CREATE TABLE posts 
+post_table = """
+CREATE TABLE posts 
 (
 id SERIAL PRIMARY KEY,
 user_id INT,

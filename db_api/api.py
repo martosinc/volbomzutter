@@ -17,8 +17,23 @@ class API:
 
         self.conn.commit()
 
+    def update_user(self, user: User):
+        self.cursor.execute(user.get_sql_update)
+
+        self.conn.commit()
+
     def add_post(self, post: Post):
         self.cursor.execute(post.get_sql_insert())
+
+        self.conn.commit()
+
+    def update_post(self, post: Post):
+        self.cursor.execute(post.get_sql_update)
+
+        self.conn.commit()
+
+    def delete_post(self, post: Post):
+        self.cursor.execute('DELETE FROM posts where id = %s', (post.id))
 
         self.conn.commit()
 
@@ -28,7 +43,8 @@ class API:
         return User(self.cursor.fetchone())
 
     def get_user(self, username: str) -> User | None:
-        self.cursor.execute('SELECT * FROM users WHERE username = %s', (username, ))
+        self.cursor.execute(
+            'SELECT * FROM users WHERE username = %s', (username, ))
 
         return User(self.cursor.fetchone())
 
