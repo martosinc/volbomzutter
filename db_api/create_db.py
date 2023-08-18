@@ -27,6 +27,7 @@ post_table = """CREATE TABLE posts
 (
 id SERIAL PRIMARY KEY,
 user_id INT,
+publication_timestamp TIMESTAMP NOT NULL DEFAULT now(),
 tittle VARCHAR(255),
 content TEXT
 );

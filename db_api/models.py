@@ -39,6 +39,7 @@ class Post(Model):
 
         self.id = None
         self.user_id = None
+        self.publication_time = None
         self.tittle = None
         self.content = None
 
@@ -46,7 +47,7 @@ class Post(Model):
             self.parse(columns)
 
     def parse(self, columns: tuple) -> None:
-        self.id, self.user_id, self.tittle, self.content = columns
+        self.id, self.user_id, self.publication_time, self.tittle, self.content = columns
 
     def get_sql_insert(self) -> str:
         return f"""INSERT INTO posts (user_id, tittle, content) VALUES ({self.user_id}, '{self.tittle}', '{self.content}')"""

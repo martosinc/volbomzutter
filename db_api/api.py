@@ -38,7 +38,12 @@ class API:
 
         return [Post(row) for row in self.cursor.fetchall()]
 
-    def get_all_posts(self) -> list[Post] | None:
-        self.cursor.execute('SELECT * FROM posts')
+    def get_posts(self, limit: int = -1) -> list[Post] | None:
+        if limit < 0:
+            self.cursor.execute(
+                'SELECT * FROM posts ORDER BY publication_timestamp')
+        else:
+            self.cursor.execute(
+                'SELECT * FROM posts ORDER BY publication_timestamp LIMIT %s', (limit, ))
 
         return [Post(row) for row in self.cursor.fetchall()]
