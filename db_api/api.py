@@ -1,6 +1,6 @@
 import psycopg2
 
-from .models import User, Post
+from models import User, Post
 
 __all__ = ['API', 'User', 'Post']
 
@@ -23,27 +23,22 @@ class API:
         self.conn.commit()
 
     def get_user(self, id: int) -> User | None:
-        self.cursor.execute('SELECT * FROM users WHERE id = %d', (id, ))
+        self.cursor.execute('SELECT * FROM users WHERE id = %s', (id, ))
 
         return User(self.cursor.fetchone())
 
     def get_post(self, id: int) -> Post | None:
-        self.cursor.execute('SELECT * FROM posts WHERE id = %d', (id, ))
+        self.cursor.execute('SELECT * FROM posts WHERE id = %s', (id, ))
 
         return Post(self.cursor.fetchone())
 
     def get_posts_by_user(self, user: User):
-        self.cursor.execute('SELECT * FROM posts WHERE id = %d', (user.id, ))
+        self.cursor.execute(
+            'SELECT * FROM posts WHERE user_id = %s', (user.id, ))
 
         return [Post(row) for row in self.cursor.fetchall()]
 
     def get_all_posts(self) -> list[Post] | None:
-        self.cursor.execute('SELECT * FROM users')
+        self.cursor.execute('SELECT * FROM posts')
 
         return [Post(row) for row in self.cursor.fetchall()]
-
-api = API(host='', user='', db_name='', password='')
-
-api.add_user(User((1, 'user', 'user', 'location', '404')))
-
-print(api.get_user(1))
