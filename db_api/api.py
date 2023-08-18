@@ -49,7 +49,7 @@ class API:
                 'SELECT * FROM posts ORDER BY publication_timestamp')
         else:
             self.cursor.execute(
-                'SELECT * FROM posts ORDER BY publication_timestamp', (limit, ))
+                'SELECT * FROM posts ORDER BY publication_timestamp LIMIT %s', (limit, ))
 
         return [Post(row) for row in self.cursor.fetchall()]
 
@@ -59,6 +59,6 @@ class API:
                 'SELECT * FROM users')
         else:
             self.cursor.execute(
-                'SELECT * FROM users', (limit, ))
+                'SELECT * FROM users LIMIT %s', (limit, ))
 
         return [User(row) for row in self.cursor.fetchall()]
