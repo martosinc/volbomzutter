@@ -28,12 +28,17 @@ class API:
         self.conn.commit()
 
     def update_post(self, post: Post):
-        self.cursor.execute(post.get_sql_update)
+        self.cursor.execute(post.get_sql_update())
 
         self.conn.commit()
 
     def delete_post(self, post: Post):
         self.cursor.execute('DELETE FROM posts where id = %s', (post.id))
+
+        self.conn.commit()
+
+    def delete_post_by_id(self, id: int):
+        self.cursor.execute('DELETE FROM posts where id = %s', (id, ))
 
         self.conn.commit()
 
@@ -45,8 +50,11 @@ class API:
     def get_user_by_username(self, username: str) -> User | None:
         self.cursor.execute(
             'SELECT * FROM users WHERE username = %s', (username, ))
+        user_data = self.cursor.fetchone()
 
-        return User(self.cursor.fetchone())
+        if user_data is None: return None
+
+        return User(user_data)
 
     def get_post_by_id(self, id: int) -> Post | None:
         self.cursor.execute('SELECT * FROM posts WHERE id = %s', (id, ))

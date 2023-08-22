@@ -1,5 +1,7 @@
 import functools
 
+from psycopg2.errors import UniqueViolation
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -23,14 +25,15 @@ def register():
             error = 'Password is required.'
 
         if error is None:
-            # try:
-            db_api.add_user(User((None, username, generate_password_hash(password), username, 'bio')))
-            # except db.IntegrityError:
-            #     error = f"User {username} is already registered."
-            # else:
-            #     return redirect(url_for("auth.login"))
-
-        flash(error)
+            try:
+                db_api.add_user(User((None, username, username, generate_password_hash(password), 'bio')))
+            except UniqueViolation:
+                error = f"User {username} is already registered."
+                db_api.conn.rollback()
+            else:
+                return redirect(url_for("auth.login"))
+        if error is not None:
+            flash(error)
 
     return render_template('auth/register.html')
 

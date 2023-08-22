@@ -70,7 +70,7 @@ class Post(Model):
     def get_sql_update(self) -> str:
         return f"""
                 UPDATE posts SET 
-                tittle = {self.title},
-                content = {self.content}
-                WHERE id = {self.id}
+                title = '{self.title}',
+                content = '{self.content}'
+                WHERE id = '{self.id}'
                 """

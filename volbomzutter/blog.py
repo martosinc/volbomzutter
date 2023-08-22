@@ -65,13 +65,10 @@ def update(id):
         if error is not None:
             flash(error)
         else:
-            # db = get_db()
-            # db.execute(
-            #     'UPDATE post SET title = ?, body = ?'
-            #     ' WHERE id = ?',
-            #     (title, body, id)
-            # )
-            # db.commit()
+            updated_post = db_api.get_post_by_id(id)
+            updated_post.title = title
+            updated_post.content = content
+            db_api.update_post(updated_post)
             return redirect(url_for('blog.index'))
 
     return render_template('blog/update.html', post=post)
@@ -80,8 +77,5 @@ def update(id):
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
-    get_post(id)
-    # db = get_db()
-    # db.execute('DELETE FROM post WHERE id = ?', (id,))
-    # db.commit()
+    db_api.delete_post_by_id(id)
     return redirect(url_for('blog.index'))
