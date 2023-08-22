@@ -15,4 +15,4 @@ Start the flask server
 ## Contribution
 - [Denis Indenbom](https://github.com/denisindenbom): PostrgreSQL Database + Docker setup
 - [Maxim Mazur](https://github.com/martosinc): Database and backend merge + Minor work on database
-- [Zahar Voloshko](https://github.com/zinko-dev): Backend
+- [Zinko-dev](https://github.com/zinko-dev): Backend
